@@ -17,6 +17,17 @@ Text will follow!
 ## Explaining Custom Layers
 
 The Openvino Toolkit supports several frameworks and their neural network model layers. Although custom layers are all layers that are not in the list of known layers.
+The **Model Optimizer** workflow contains following steps:
+- The model optimizer searches the list of known layers for each layer in the input model before buidling the model internal representation.
+- Optimize the model
+- Produce the IF files
+The **Inference Engine** workflow contains following steps:
+- Loads the IR files into the specified device plugin
+- Searches a list of known layer implementations for the device
+- If that list contains layers not on that list the IE reports an error
+
+
+
 
 Since the model optimizer 
 
