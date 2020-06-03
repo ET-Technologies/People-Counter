@@ -1,7 +1,7 @@
 ## Model Research
 
 Model 1: SSD MobileNet V2 COCO
-- [Test]
+- [Github](./linux-setup.md)
 - I converted the model to an IR with following arguments:
 
 # Project Write-Up
