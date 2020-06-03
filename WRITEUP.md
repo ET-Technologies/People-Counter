@@ -16,7 +16,7 @@ Text will follow!
 
 ## Explaining Custom Layers
 
-The Openvino Toolkit supports multiple frameworks and their nueral network model layers. Altough custom layers are all layers not included in the list of known layers.
+The Openvino Toolkit supports several frameworks and their neural network model layers. Although custom layers are all layers that are not in the list of known layers.
 
 Since the model optimizer 
 
