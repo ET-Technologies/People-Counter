@@ -1,8 +1,8 @@
 ## Model Research
 
 Model 1: SSD MobileNet V2 COCO
--[Test]
-I converted the model to an IR with following arguments:
+- [Test]
+- I converted the model to an IR with following arguments:
 
 # Project Write-Up
 
