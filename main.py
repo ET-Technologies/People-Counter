@@ -32,7 +32,7 @@ import logging as log
 import paho.mqtt.client as mqtt
 
 from argparse import ArgumentParser
-from inference_project import Network
+from inference import Network
 
 # MQTT server environment variables
 HOSTNAME = socket.gethostname()
