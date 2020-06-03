@@ -3,6 +3,7 @@
 ### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
 - I converted the model to an IR with following arguments:
+
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
 --input_model ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb \
 --tensorflow_object_detection_api_pipeline_config ssd_mobilenet_v2_coco_2018_03_29/pipeline.config \
