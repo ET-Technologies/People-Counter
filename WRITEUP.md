@@ -51,9 +51,12 @@ The app can count how many people are in the facility. This amount can be compar
 
 ## Assess Effects on End User Needs
 
-In the beginning of this project I was not aware how many parameter could affect a good output. Frist I was struggeling with the right model. It turns out that outof the box models did not perform as good as pretrained models. One has to consider frameworks, datasets and model size. Espezially with AI at the edge applications those parameters are very importend. Large models have low inference time with low compute power. Small models have often lower accuracy, so it is a trade off. Accuracy also comes with the video material. If the light is bad or the focal length is not adjusted this could affect the output of the model. Therefore before creating an apllication one has to think about these trade offs, how they would affect the accuracy and how one could fix or limit the bad influence.
+At the start of this project, I wasn't aware of how many parameters could affect a good output. At first I had problems with the right model. It turns out that out-of-the-box models didn't perform as well as pretrained models. You have to consider frameworks, data sets and model size. These parameters are particularly important for AI on the edge applications. Large models have a higher inference time and also higher computing power. Small models are often less accurate, so this is a compromise. The accuracy also comes with the quality of the video footage. If the light is poor or the focal length is not adjusted, this can affect the output of the model. Therefore, before building an application, you need to consider how these compromises affect accuracy and how to fix or limit the bad impact.
 
 ## Model Research
+
+I had the most problems with this part. I converted some models using the model optimizer, but the output was not satisfactory.
+First, I was unable to convert some of these models. Part of it was probably my fault, but then the model optimizer also had some problems with it. Second, I was faced with different datasets types. As a mentor told me, an SSD trained on Coco Dataset was unable to perform with this project. He was right, but I was still confused because many of my fellow students used the same model. Third, I was confused with different input- and output_blobs of the model. And to be honest, this was one of my biggest problems. I couldn't find the right settings. I'm not going to dissuade myself from blaming bad documentation, it's just a lesson I still have to learn.
 
 ### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
