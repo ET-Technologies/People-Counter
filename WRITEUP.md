@@ -12,7 +12,10 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
 
 # Project Write-Up
 
-Text will follow!
+## Overview
+This project was a very good experience in many ways. First of all, it was a repetition of the previous course. With all the challenges from the model optimizer to the inference engine. Second, I had to deal with many different model types, frameworks and data sets. Questions are as follows: Which model is suitable, on which data set was it trained and how fast is the inference time? And finally, what problems can arise if the model doesn't work as well as we would like, or how I can debug my code if the user interface doesn't work properly.
+Still, I couldn't solve all the problems and the openvino toolkit revealed some problems, but still the project was very interesting and I'm looking forward to the next one.
+
 
 ## Explaining Custom Layers
 
