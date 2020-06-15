@@ -51,8 +51,7 @@ In investigating potential people counter models, I tried each of the following 
 
 #### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
-##### [Model Source]:
-  * [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz)
+##### [Model Source]: [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz)
 
   * Conversion:
   ```
@@ -74,8 +73,7 @@ One of my mentors later told me that a coco-trained model was not good for this 
 
 #### Model 2: ssd_inception_v2_coco_2018_01_28
 
-##### [Model Source]:
-* [ssd_inception_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz)
+##### [Model Source]: [ssd_inception_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz)
  * Conversion:
   ```
   python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
@@ -94,8 +92,7 @@ This model also had problems with person number 2. Because the inference time wa
 
 #### Model 3: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
 
-##### [Model Source]:
-* [ssd_mobilenet_v1_fpn_shared_box_predictor](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz)
+##### [Model Source]: [ssd_mobilenet_v1_fpn_shared_box_predictor](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz)
  * Conversion:
   ```
   python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
