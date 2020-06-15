@@ -94,3 +94,7 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
 --reverse_input_channels \
 --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
 
+#### Conclusion:
+I did not find any useful model for this project. Therefore I used the person-detection-retail-0013.xml from the Openvino Model Zoo.
+This model had the best inference time and the best results.
+
