@@ -70,6 +70,7 @@ class Network:
         #self.net_plugin = iec.load_network(network = self.net, device_name = device)
         log.info("Loading IR to the plugin ...")
         
+        # Get the input layer
         self.input_blob = next(iter(self.net.inputs))
         self.out_blob = next(iter(self.net.outputs))
         
@@ -81,12 +82,12 @@ class Network:
         return iec, self.get_input_shape()
     
     def get_input_shape(self):
-        
+                       
         return self.net.inputs[self.input_blob].shape
+                                 
     
-    #def exec_net(self, request_id, frame):
     def exec_net(self, frame, request_id=0):
-        
+
         self.infer_request_handle = self.net_plugin.start_async(request_id=request_id, inputs={self.input_blob: frame})
         
         return self.net_plugin
@@ -104,6 +105,10 @@ class Network:
         
         return res
             
-    def clean():
+    def clean(self):
+        """
+        Deletes all the instances
+        :return: None
+        """
         del self.net_plugin
         del self.net
