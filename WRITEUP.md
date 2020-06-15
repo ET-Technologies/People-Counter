@@ -75,29 +75,7 @@ The model had problems with Person 2, so I set the threshold to 0.2.
 Still, the issue was not solved and the second person was not counted correctly.
 One of my mentors later told me that a coco-trained model was not good for this job.
 
-#### Model 2: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
-
-##### [Model Source]:
-- ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.xml
-
-##### Results:
-- Inference time: 150-170ms
-- Total counted people: 11
-- Duration: 00:17
-- Threshold: 0,2
-- Comments:
-This model also had problems with person number 2. Therefore I set the threshold level to 0,2. Because the inference time was higher than the ssd_mobilenet_v2_coco_2018_03_29 model and the results were not better, this model was not an option for the project.
-
-
-##### I converted the model to an IR with following arguments:
-
-python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
---input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb \
---tensorflow_object_detection_api_pipeline_config ssd_inception_v2_coco_2018_01_28/pipeline.config \
---reverse_input_channels \
---tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
-
-#### Model 2: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
+#### Model 3: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
 
 ##### [Model Source]:
 http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz
