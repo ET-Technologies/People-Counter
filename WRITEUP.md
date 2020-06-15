@@ -24,7 +24,11 @@ If you need to implement a custom layer for your model, you will need to add ext
 
 ## Comparing Model Performance
 
-Text will follow!
+| Metric        | Pre-Conversion| Post-Conversion  |
+| ------------- |:-------------:| -----:           |
+| Size          | ? MB (.pb) | ? MB (bin)    |
+| Inference time per frame| ? ms |   ? ms   |
+| Total Inference time | ? ms |   ? ms|
 
 
 ## Assess Model Use Cases
