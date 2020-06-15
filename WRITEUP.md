@@ -1,12 +1,11 @@
 # Project Write-Up
 
 ## Overview
-This project was a very good experience in many ways. First of all, it was a repetition of the previous course. With all the challenges from the model optimizer to the inference engine. Second, I had to deal with many different model types, frameworks and data sets. Questions are as follows: Which model is suitable, on which data set was it trained and how fast is the inference time? And finally, what problems can arise if the model doesn't work as well as we would like, or how I can debug my code if the user interface doesn't work properly.
-Still, I couldn't solve all the problems and the openvino toolkit revealed some problems, but still the project was very interesting and I'm looking forward to the next one.
+This project was a very good experience in many ways. First of all, it was a repetition of the previous course. With all the challenges from the model optimizer to the inference engine. Second, I had to deal with many different model types, frameworks and data sets. Questions accrued like: Which model is suitable, on which data set was it trained and how fast is the inference time? And finally, what problems can arise if the model doesn't work as well as we would like, or how I can debug my code if the user interface doesn't work properly.
+Though, I could finish the project, but I couldn't solve all problems which would accure in the real world. But still the project was very interesting and I'm looking forward to the next one.
 
 ## Explaining Custom Layers
-
-The Openvino Toolkit supports several frameworks and their neural network model layers. Although custom layers are all layers that are not in the list of known layers.
+The Openvino Toolkit supports several frameworks and their neural network model layers. Although each of the different frameworks has different requirements and specifications. Custom layers are therefore all layers that are not included in the list of known layers, but are still required by the framework. Custom layers help the model optimizer to understand the network and remove the restriction if someone wants their own function that would otherwise not be recognized by the model optimizer.
 
 The **Model Optimizer** workflow contains following steps:
 
@@ -22,22 +21,6 @@ The **Inference Engine** workflow contains following steps:
 
 ### Custom Layer implementation
 If you need to implement a custom layer for your model, you will need to add extensions to the Model Optimizer and the Inference Engine.
-#### Custom Layer for the Model Optimizer
-The MO extracts Information from the input model which includes 
-- the topology of the model layers 
-- parameters
-- input and output format ...
-
-If the MO detects an custom layer the libary must be extended. The custom layer extensions are:
-- Custom Layer Extractor
-- Custom Layer Operation
-
-#### Custom Layer Extensions for the Inference Engine
-
-The custom layer extensin in the IE is implemented according to the target device:
-- Custom Layer CPU Extension
-- Custom Layer GPU Extension
-
 
 ## Comparing Model Performance
 
