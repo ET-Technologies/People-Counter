@@ -57,7 +57,7 @@ In investigating potential people counter models, I tried each of the following 
 ##### Results:
 - Inference time: 61-73 ms
 - Total counted people: 8
-- Duration:00:30
+- Duration: 00:30
 - Threshold: 0,2
 - Comments:
 The model had problems with Person 2, so I set the threshold to 0.2.
@@ -70,14 +70,12 @@ One of my mentors later told me that a coco-trained model was not good for this 
 - http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
 
 ##### Results:
-- Inference time: 61-73 ms
-- Total counted people: 8
-- Duration:00:30
+- Inference time: 150-170ms
+- Total counted people: 11
+- Duration: 00:17
 - Threshold: 0,2
 - Comments:
-The model had problems with Person 2, so I set the threshold to 0.2.
-Still, the issue was not solved and the second person was not counted correctly.
-One of my mentors later told me that a coco-trained model was not good for this job.
+This model also had problems with person number 2. Because the inference time was higher than the ssd_mobilenet_v2_coco_2018_03_29 model and the results were not better, this model was not an option for the project.
 
 #### Model 3: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
 
