@@ -52,8 +52,16 @@ In investigating potential people counter models, I tried each of the following 
 #### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
 ##### [Model Source]:
-- http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
+  * [ssd_mobilenet_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz)
 
+  * Conversion:
+  ```
+  python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
+--input_model ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb \
+--tensorflow_object_detection_api_pipeline_config ssd_mobilenet_v2_coco_2018_03_29/pipeline.config \
+--reverse_input_channels \
+--tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
+  ```
 ##### Results:
 - Inference time: 61-73 ms
 - Total counted people: 8
@@ -67,8 +75,15 @@ One of my mentors later told me that a coco-trained model was not good for this 
 #### Model 2: ssd_inception_v2_coco_2018_01_28
 
 ##### [Model Source]:
-- http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
-
+* [ssd_inception_v2_coco](http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz)
+ * Conversion:
+  ```
+  python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
+--input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb \
+--tensorflow_object_detection_api_pipeline_config ssd_inception_v2_coco_2018_01_28/pipeline.config \
+--reverse_input_channels \
+--tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
+  ```
 ##### Results:
 - Inference time: 150-170ms
 - Total counted people: 11
@@ -80,21 +95,21 @@ This model also had problems with person number 2. Because the inference time wa
 #### Model 3: ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
 
 ##### [Model Source]:
-http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz
-
+* [ssd_mobilenet_v1_fpn_shared_box_predictor](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz)
+ * Conversion:
+  ```
+  python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
+--input_model ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.pb \
+--tensorflow_object_detection_api_pipeline_config ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/pipeline.config \
+--reverse_input_channels \
+--tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
+  ```
 ##### Results:
 - Inference time: ~ 1840ms
 - Total counted people:
 - Duration:
 - Threshold:
 - Comments
-
-##### I converted the model to an IR with following arguments:
-python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
---input_model ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.pb \
---tensorflow_object_detection_api_pipeline_config ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/pipeline.config \
---reverse_input_channels \
---tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
 
 #### Conclusion:
 I did not find any useful model for this project. Therefore I used the person-detection-retail-0013.xml from the Openvino Model Zoo.
