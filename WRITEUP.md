@@ -19,7 +19,7 @@ The **Inference Engine** workflow contains following steps:
 - Searches a list of known layer implementations for the device
 - If that list contains layers not on that list the IE reports an error
 
-### Custom Layer implementation
+#### Custom Layer implementation
 If you need to implement a custom layer for your model, you will need to add extensions to the Model Optimizer and the Inference Engine.
 
 ## Comparing Model Performance
@@ -38,12 +38,29 @@ At the start of this project, I wasn't aware of how many parameters could affect
 
 ## Model Research
 
+### Explainatian:
 I had the most problems with this part. I converted some models using the model optimizer, but the output was not satisfactory.
 First, I was unable to convert some of these models. Part of it was probably my fault, but then the model optimizer also had some problems with it. Second, I was faced with different datasets types. As a mentor told me, an SSD trained on Coco Dataset was unable to perform with this project. He was right, but I was still confused because many of my fellow students used the same model. Third, I was confused with different input- and output_blobs of the model. And to be honest, this was one of my biggest problems. I couldn't find the right settings. I'm not going to dissuade myself from blaming bad documentation, it's just a lesson I still have to learn.
 
+### Models used:
+In investigating potential people counter models, I tried each of the following three models:
+
 ### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
-- I converted the model to an IR with following arguments:
+#### [Model Source]:
+ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.xml
+
+#### Results:
+Inference time:
+Total counted people:
+Duration:
+
+#### Problems:
+The model was insufficient for the app because...
+
+I tried to improve the model for the app by...
+
+#### I converted the model to an IR with following arguments:
 
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
 --input_model ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb \
