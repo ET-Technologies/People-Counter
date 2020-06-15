@@ -26,7 +26,7 @@ If you need to implement a custom layer for your model, you will need to add ext
 
 * ssd_mobilenet_v1_coco_2018_01_28
 
-In my opinion it is not that easy to get an accured direct comparison. To do so one has to write a program without openvino and take that results. Since this was out of scope I just compared the size and speed. The model size was a little bit less than the size befor conversion, but the seed did increase. ( [Speed data](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
+In my opinion, it is not so easy to get an accurate, direct comparison. To do this, you have to write a program without openvino and record these results. Since this was outside the scope of this task, I only compared the size and speed. The model size was slightly smaller than the size before the conversion, but the speed increased. ([Speed data (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md))
 
 | Metric        | Pre-Conversion| Post-Conversion  |
 | ------------- |:-------------:| -----:           |
