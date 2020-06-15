@@ -45,22 +45,22 @@ First, I was unable to convert some of these models. Part of it was probably my 
 ### Models used:
 In investigating potential people counter models, I tried each of the following three models:
 
-### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
+#### Model 1: SSD MobileNet V2 COCO (ssd_mobilenet_v2_coco_2018_03_29)
 
-#### [Model Source]:
-ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.xml
+##### [Model Source]:
+- ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.xml
 
-#### Results:
-Inference time:
-Total counted people:
-Duration:
+##### Results:
+- Inference time:
+- Total counted people:
+- Duration:
 
-#### Problems:
+##### Problems:
 The model was insufficient for the app because...
 
 I tried to improve the model for the app by...
 
-#### I converted the model to an IR with following arguments:
+##### I converted the model to an IR with following arguments:
 
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py \
 --input_model ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb \
