@@ -24,11 +24,13 @@ If you need to implement a custom layer for your model, you will need to add ext
 
 ## Comparing Model Performance
 
+In my opinion it is not that easy to get an accured direct comparison. 
+Because, one had to build 
+
 | Metric        | Pre-Conversion| Post-Conversion  |
 | ------------- |:-------------:| -----:           |
-| Size          | ? MB (.pb) | ? MB (bin)    |
-| Inference time per frame| ? ms |   ? ms   |
-| Total Inference time | ? ms |   ? ms|
+| Size          | 69 MB (.pb) | ? MB (bin)    |
+| Speed| 27 ms |   ? ms   |
 
 
 ## Assess Model Use Cases
@@ -103,10 +105,11 @@ This model also had problems with person number 2. Because the inference time wa
   ```
 ##### Results:
 - Inference time: ~ 1840ms
-- Total counted people:
-- Duration:
-- Threshold:
-- Comments
+- Total counted people: 8
+- Duration: 00:29
+- Threshold: 0,4
+- Comments:
+The results of this model were not that bad. I think the results could have been better, but since the inference time was so slow, I didn't repeat it with a lower threshold level. Nevertheless, this model would have been far too slow for this project.
 
 #### Conclusion:
 I did not find any useful model for this project. Therefore I used the person-detection-retail-0013.xml from the Openvino Model Zoo.
