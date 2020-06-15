@@ -32,7 +32,7 @@ import logging as log
 import paho.mqtt.client as mqtt
 
 from argparse import ArgumentParser
-from inference import Network
+from inference_project import Network
 
 # MQTT server environment variables
 HOSTNAME = socket.gethostname()
@@ -82,31 +82,12 @@ def connect_mqtt():
     return client
 
 #def alarm(self):
-    #if more than e.g. 5 people went into the room a alarm is send.
-    #print ("Alarm no more people must go to the room!")
+    # Not finished yet
+    # if more than e.g. 5 people went into the room a alarm is send.
 
 #def writeincsv(self):
-    #Here the output text is writen in a txt file
-    #print ("writeincsv")
-
-def boundingboxes (coordinates, image):
-    
-    current_count = 0
-    
-    for obj in coordinates[0][0]:
-        # BB Boxes if probability higher then threshold
-     
-        if obj[2] > prob_threshold:
-            xmin = int(obj[3] * width)
-            ymin = int(obj[4] * height)
-            xmax = int(obj[5] * width)
-            ymax = int(obj[6] * height)
-            cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (0, 55, 255),1)
-            current_count = current_count + 1
-            
-    return image, current_count
-    
-
+    # Not finished yet
+    # Here the output text is writen in a txt file
 
 def infer_on_stream(args, client):
     """
@@ -117,24 +98,33 @@ def infer_on_stream(args, client):
     :param client: MQTT client
     :return: None
     """
+    
+    num_requests = 0
+    
+    # Flag for the single image
+    single_image_mode = False
+
+    
     # Initialise the class
     infer_network = Network()
+    
     # Set Probability threshold for detections
-    num_requests = 0
-    start_time = 0
-    last_count = 0
-
+    prob_threshold = args.prob_threshold
+    
     ### TODO: Load the model through `infer_network` ###
     n, c, h, w = infer_network.load_model(args.model, args.device, 1, 1, num_requests, args.cpu_extension)[1]
 
     ### TODO: Handle the input stream ###
+    
     # Check for Webcam
     if args.input =="CAM":
         input_stream = 0
+        
     # Check for Image (jpg, bmp, png)
     elif args.input.endswith(".jpg") or args.input.endswith(".bmp") or args.input.endswith(".png") :
         single_image_mode = True
         input_stream = args.input
+        
     # Check for video    
     else:
         input_stream = args.input
@@ -147,22 +137,23 @@ def infer_on_stream(args, client):
         cap.open(args.input)
     if not cap.isOpened():
         log.error("Error: No video source")
-        #print ("Error: No video source")
-        
     
-    global width, height, prob_threshold
-    width = cap.get(3)
-    height = cap.get(4)
-    prob_threshold = args.prob_threshold
+    ### Variables
     total_count = 0
     duration = 0
-    last_count = 0
-    request_id = 0
-    frame_count = 0
-    missed_count = 0
-    more_than_3 = 0
-    current_count_test = 0
+    person_on_screen = False
+    person_count = 0
+    no_person_count = 0
+    people_count = 0
+    duration_time = 0
+    width = cap.get(3)
+    height = cap.get(4)
     durration_flag = 0
+    new_person_flag = 0
+    person_leaves_flag = 0
+    request_id = 0
+    i_start = 0
+    person_detected = 0
 
         ### TODO: Read from the video capture ###
     while cap.isOpened():
@@ -178,85 +169,78 @@ def infer_on_stream(args, client):
         image = image.reshape((n, c, h, w))
 
         ### TODO: Start asynchronous inference for specified request ###
-        i_start =time.time()
         infer_network.exec_net(image,request_id)
+        inf_start_time = time.time()
 
         ### TODO: Wait for the result ###
         if infer_network.wait(request_id) == 0:
-            d_time = time.time() - i_start
-            test = 20
-            test2 = 20
+            det_time = time.time() - inf_start_time
+            current_count = 0
             
-
             ### TODO: Get the results of the inference request ###
             result = infer_network.get_output(request_id)
-            image, current_count = boundingboxes(result, frame)
-
-            ### TODO: Extract any desired stats from the results ###
-            # Inference Time
-            if_time = "Inference time: {:.3f}ms".format(d_time * 1000)
-            cv2.putText(frame, if_time, (15,15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (200, 10, 10),1)
-
-            ### TODO: Calculate and send relevant information on ###
-            ### current_count, total_count and duration to the MQTT server ###
-            ### Topic "person": keys of "count" and "total" ###
-            ### Topic "person/duration": key of "duration" ###
- 
-            if current_count == 0:
-                    missed_count = missed_count + 1
-                    client.publish("miss_count", json.dumps({"miss":missed_count}))
-                    # to make sure it is a new person
-                    if missed_count >20:
-                        more_than_3 = missed_count
-                        more_than_4 = missed_count
             
-            if current_count == 1:
-                current_count_test = current_count_test + 1
-                if current_count_test > 3:
-                    durration_flag = 1
+            ##Put the inference time in the frame ###
+            time_message = "Inference time: {:.3f}ms".format(det_time * 1000)
+            mes_on_frame_01 = "Model: " + args.model
+            mes_on_frame_02 = "Threshold: " + str(prob_threshold)
+            cv2.putText(frame,time_message, (15, 15),cv2.FONT_HERSHEY_COMPLEX, 0.5, (200, 10, 10), 1)
+            cv2.putText(frame,mes_on_frame_01, (15, 30),cv2.FONT_HERSHEY_COMPLEX, 0.5, (200, 10, 10), 1)
+            cv2.putText(frame,mes_on_frame_02, (15, 45),cv2.FONT_HERSHEY_COMPLEX, 0.5, (200, 10, 10), 1)    
             
-            if more_than_3 > test:
-                if current_count > last_count:
-                    start_time = time.time()
-                    total_count = total_count + current_count - last_count
-                    
-                    client.publish("person", json.dumps({"total":total_count}))
-                    
-                    missed_count = 0
-                    more_than_3 = 0
+            for obj in result[0][0]:
+                if obj[2] > prob_threshold:
+                    current_count = current_count + 1
+                    xmin = int(obj[3] * width)
+                    xmin = int(obj[3] * width)
+                    ymin = int(obj[4] * height)
+                    xmax = int(obj[5] * width)
+                    ymax = int(obj[6] * height)
+                    cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 55, 255),1)
+                    person_detected = 1
             
-            if durration_flag == 1:
-                if current_count < last_count:
-                    current_count_test = 0
-                    if more_than_4 > test2:
-                        duration = int(time.time() - start_time)
-                        client.publish("person/duration", json.dumps({"duration": duration}))
-                        more_than_4 = 0
-                        durration_flag = 0
+            if person_detected:
+                person_count = person_count + 1
+                no_person_count = 0
+            
+            else:
+                no_person_count = no_person_count +1
+                person_count = 0
                 
+            person_detected = 0
             
+            if person_count == 5 and person_on_screen == False:
+                person_on_screen = True
+                current_count = 1
+                i_start = time.time()
+                person_count = 0
+                no_person_count = 0
+                durration_flag = 0
             
-            # Duration
-            #if current_count < last_count:
-                
-             #   if more_than_4 > test2:
-              #      duration = int(time.time() - start_time)
-               #     client.publish("person/duration", json.dumps({"duration": duration}))
-                #    more_than_4 = 0
-            
-            client.publish("person", json.dumps({"count": current_count}))
-            #client.publish("person", json.dumps({"Current Count Test":current_count_test}))
-            last_count = current_count
-            
+            elif no_person_count == 5 and person_on_screen == True:
+                person_on_screen = False
+                current_count = 0
+                i_start = time.time() - i_start
+                person_count = 0
+                no_person_count = 0
+                total_count = total_count +1
+                duration_time = duration_time + i_start
+                i_start = 0
+                duration = round(duration_time / total_count)
+                durration_flag = 1
         
+            client.publish("person", json.dumps({"count":current_count}))
+            if durration_flag:
+                client.publish("person/duration", json.dumps({"duration": duration}))
+                durration_flag = 0
 
         ### TODO: Send the frame to the FFMPEG server ###
         sys.stdout.buffer.write(frame)
         sys.stdout.flush()
 
         ### TODO: Write an output image if `single_image_mode` ###
-        #if single_image_mode:
-        #    cv2.write("out.jpg", frame)
+        if single_image_mode:
+            cv2.write("out.jpg", frame)
             
     cap.release()
     cv2.destroyAllWindows()
